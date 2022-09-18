@@ -4,7 +4,7 @@
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 
-# webdriverのバージョン管理 webdriverマネージャー及びByのインストール　1,2
+# webdriverのバージョン管理 webdriverマネージャー及びByのインストール　1
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.by import By
 
@@ -32,10 +32,10 @@ UA = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_5) AppleWebKit/605.1.15 (KHTM
 options.add_argument('--user-agent=' + UA)
 #driver = webdriver.Chrome('chromedriver')
 
-# webdriverマネージャーのインストール.3
+# webdriverマネージャーのインストール
 driver = webdriver.Chrome(ChromeDriverManager().install())
 
-# driver = webdriver.Chrome(options=options)4.
+# driver = webdriver.Chrome(options=options)
 driver.implicitly_wait(10)
 driver.maximize_window()
 
@@ -73,7 +73,10 @@ for j in range(len(search_keys)):
     print(driver.current_url)
 
     #search_keyで検索
-    a = driver.find_element_by_xpath("/html/body/div[1]/div/div/div[2]/main/div/div/div/div/div/div[1]/div[1]/div/div/div/div/div[1]/div[2]/div/div/div/form/div[1]/div/div/label/div[2]/div/input")
+    # a = driver.find_element_by_xpath("/html/body/div[1]/div/div/div[2]/main/div/div/div/div/div/div[1]/div[1]/div/div/div/div/div[1]/div[2]/div/div/div/form/div[1]/div/div/label/div[2]/div/input")
+    a = driver.find_element(By.XPATH,"/html/body/div[1]/div/div/div[2]/main/div/div/div/div/div/div[1]/div[1]/div/div/div/div/div[1]/div[2]/div/div/div/form/div[1]/div/div/label/div[2]/div/input")  
+    
+    
     # if len(a)==0:
     #     a = driver.find_elements_by_xpath("/html/body/div[1]/div/div/div[2]/main/div/div/div/div/div/div[1]/div[1]/div/div/div/div/div[2]/div[2]/div/div/div/form/div[1]/div/div/label/div[2]/div/input")
     a.clear()
