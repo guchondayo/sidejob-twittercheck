@@ -43,12 +43,14 @@ url = "https://twitter.com/i/flow/login"
 
 #id入力
 driver.get(url)
-a = driver.find_elements_by_name("text")
+# a = driver.find_elements_by_name("text")
+a = driver.find_elements(By.NAME,"text")
 a[0].send_keys(id)
 a[0].send_keys(keys.ENTER)
 
 #password入力
-a = driver.find_elements_by_name("password")
+# a = driver.find_elements_by_name("password")
+a = driver.find_elements(By.NAME,"password")
 a[0].send_keys(password)
 a[0].send_keys(keys.ENTER)
 time.sleep(5)
