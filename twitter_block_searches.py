@@ -117,7 +117,7 @@ for j in range(len(search_keys)):
             driver.execute_script("arguments[0].click();",detail_button[0])
             time.sleep(1)
 
-            block_button = driver.find_elements_by_xpath("/html/body/div[1]/div/div/div[1]/div[2]/div/div/div/div[2]/div[3]/div/div/div/div")
+            block_button = driver.find_elements(By.XPATH,"/html/body/div[1]/div/div/div[1]/div[2]/div/div/div/div[2]/div/div[3]/div/div/div/div")
             if len(block_button)==3:#ブロックしている時
                 continue
             elif len(block_button)==5:
@@ -126,7 +126,7 @@ for j in range(len(search_keys)):
                 continue
             time.sleep(1)
 
-            block = driver.find_element_by_xpath("/html/body/div[1]/div/div/div[1]/div[2]/div/div/div/div/div/div[2]/div[2]/div[2]/div[1]")
+            block = driver.find_element(By.XPATH,"/html/body/div[1]/div/div/div[1]/div[2]/div/div/div/div/div/div[2]/div[2]/div[2]/div[1]")
             block.click()
             count=count+1
             print(str(count)+"回ブロックしました")
