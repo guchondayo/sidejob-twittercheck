@@ -15,8 +15,8 @@ import chromedriver_binary
 from selenium.webdriver.common.keys import Keys as keys
 import random
 
-id="Obdycu5GtkFORod"
-password="kazuto7171"
+id="session08"
+password="session09"
 search_keys=["検索ワード一つ目","検索ワード二つ目","検索ワード三つ目","・・・"] #検索ワードを入力してください
 
 
@@ -76,7 +76,7 @@ for j in range(len(search_keys)):
 
     #search_keyで検索
     # a = driver.find_element_by_xpath("/html/body/div[1]/div/div/div[2]/main/div/div/div/div/div/div[1]/div[1]/div/div/div/div/div[1]/div[2]/div/div/div/form/div[1]/div/div/label/div[2]/div/input")
-    a = driver.find_element(By.XPATH,"/html/body/div[1]/div/div/div[2]/main/div/div/div/div/div/div[1]/div[1]/div/div/div/div/div[1]/div[2]/div/div/div/form/div[1]/div/div/label/div[2]/div/input")  
+    a = driver.find_element(By.XPATH,"/html/body/div[1]/div/div/div[2]/main/div/div/div/div/div/div[1]/div[1]/div[1]/div/div/div/div/div[1]/div[2]/div/div/div/form/div[1]/div/div/div/label/div[2]/div/input")  
     
     
     # if len(a)==0:
@@ -89,7 +89,7 @@ for j in range(len(search_keys)):
     time.sleep(4)
 
     #最新ツイートボタン押す
-    a = driver.find_element_by_xpath("/html/body/div[1]/div/div/div[2]/main/div/div/div/div/div/div[1]/div[2]/nav/div/div[2]/div/div[2]/a")
+    a = driver.find_element_by_xpath("/html/body/div[1]/div/div/div[2]/main/div/div/div/div/div/div[1]/div[1]/div[2]/nav/div/div[2]/div/div[2]/a")
     a.click()
 
     time.sleep(4)
@@ -129,7 +129,8 @@ for j in range(len(search_keys)):
             print(str(count)+"回ブロックしました")
             time.sleep(1)
         
-        search_input = driver.find_element_by_xpath("/html/body/div[1]/div/div/div[2]/main/div/div/div/div/div/div[1]/div[1]/div/div/div/div/div[2]/div[2]/div/div/div/form/div[1]/div/div/label/div[2]/div/input")
+        # search_input = driver.find_element_by_xpath("/html/body/div[1]/div/div/div[2]/main/div/div/div/div/div/div[1]/div[1]/div/div/div/div/div[2]/div[2]/div/div/div/form/div[1]/div/div/label/div[2]/div/input")
+                search_input = driver.find_element_by_xpath("/html/body/div[1]/div/div/div[2]/main/div/div/div/div/div/div[1]/div[1]/div[1]/div/div/div/div/div[1]/div[2]/div/div/div/form/div[1]/div/div/div/label/div[2]/div/input")
         search_input.send_keys(keys.ENTER)
 
 
