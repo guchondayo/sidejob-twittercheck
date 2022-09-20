@@ -17,7 +17,7 @@ import random
 
 id="session08"
 password="session09"
-search_keys=["検索ワード一つ目","検索ワード二つ目","検索ワード三つ目","・・・"] #検索ワードを入力してください
+search_keys=["一つ目","二つ目","検索ワード三つ目","・・・"] #検索ワードを入力してください
 
 
 options = webdriver.ChromeOptions()
@@ -133,7 +133,7 @@ for j in range(len(search_keys)):
             time.sleep(1)
         
         # search_input = driver.find_element_by_xpath("/html/body/div[1]/div/div/div[2]/main/div/div/div/div/div/div[1]/div[1]/div/div/div/div/div[2]/div[2]/div/div/div/form/div[1]/div/div/label/div[2]/div/input")
-        search_input = driver.find_element(By.XPATH,"/html/body/div[1]/div/div/div[2]/main/div/div/div/div/div/div[1]/div[1]/div[1]/div/div/div/div/div[1]/div[2]/div/div/div/form/div[1]/div/div/div/label/div[2]/div/input")
+        search_input = driver.find_element(By.XPATH,"/html/body/div[1]/div/div/div[2]/main/div/div/div/div/div/div[1]/div[1]/div[1]/div/div/div/div/div[2]/div[2]/div/div/div/form/div[1]/div/div/div/label/div[2]/div/input")
         search_input.send_keys(keys.ENTER)
 
 
