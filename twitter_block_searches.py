@@ -89,7 +89,8 @@ for j in range(len(search_keys)):
     time.sleep(4)
 
     #最新ツイートボタン押す
-    a = driver.find_element_by_xpath("/html/body/div[1]/div/div/div[2]/main/div/div/div/div/div/div[1]/div[1]/div[2]/nav/div/div[2]/div/div[2]/a")
+    # a = driver.find_element_by_xpath("/html/body/div[1]/div/div/div[2]/main/div/div/div/div/div/div[1]/div[1]/div[2]/nav/div/div[2]/div/div[2]/a")
+    a = driver.find_element(By.XPATH,"/html/body/div[1]/div/div/div[2]/main/div/div/div/div/div/div[1]/div[1]/div[2]/nav/div/div[2]/div/div[2]/a")
     a.click()
 
     time.sleep(4)
@@ -101,14 +102,16 @@ for j in range(len(search_keys)):
 
     while True:
         #ツイートを取得
-        a = driver.find_elements_by_xpath("/html/body/div[1]/div/div/div[2]/main/div/div/div/div/div/div[2]/div/section/div/div/div")
+        # a = driver.find_elements_by_xpath("/html/body/div[1]/div/div/div[2]/main/div/div/div/div/div/div[2]/div/section/div/div/div")
+        a = driver.find_elements(By.XPATH,"/html/body/div[1]/div/div/div[2]/main/div/div/div/div/div/div[2]/div/section/div/div/div")
         if len(a)==0:
             print("ツイートなし")
             break
 
         for i in range(1,len(a)+1):
-            x_path = "/html/body/div[1]/div/div/div[2]/main/div/div/div/div/div/div[2]/div/section/div/div/div["+str(i)+"]/div/div/article/div/div/div/div[2]/div[2]/div[1]/div/div/div[2]/div/div/div/div"
-            detail_button = driver.find_elements_by_xpath(x_path)
+            x_path = "/html/body/div[1]/div/div/div[2]/main/div/div/div/div/div/div[2]/div/section/div/div/div["+str(i)+"]/div/div/div/article/div/div/div/div[2]/div[2]/div[1]/div/div/div[2]/div/div/div/div/div[1]/div/div"
+            # detail_button = driver.find_elements_by_xpath(x_path)
+            detail_button = driver.find_elements(By.XPATH,x_path)
             if len(detail_button)==0:
                 continue
             driver.execute_script("arguments[0].click();",detail_button[0])
@@ -130,7 +133,7 @@ for j in range(len(search_keys)):
             time.sleep(1)
         
         # search_input = driver.find_element_by_xpath("/html/body/div[1]/div/div/div[2]/main/div/div/div/div/div/div[1]/div[1]/div/div/div/div/div[2]/div[2]/div/div/div/form/div[1]/div/div/label/div[2]/div/input")
-                search_input = driver.find_element_by_xpath("/html/body/div[1]/div/div/div[2]/main/div/div/div/div/div/div[1]/div[1]/div[1]/div/div/div/div/div[1]/div[2]/div/div/div/form/div[1]/div/div/div/label/div[2]/div/input")
+        search_input = driver.find_element(By.XPATH,"/html/body/div[1]/div/div/div[2]/main/div/div/div/div/div/div[1]/div[1]/div[1]/div/div/div/div/div[1]/div[2]/div/div/div/form/div[1]/div/div/div/label/div[2]/div/input")
         search_input.send_keys(keys.ENTER)
 
 

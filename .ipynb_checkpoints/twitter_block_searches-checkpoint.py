@@ -3,19 +3,25 @@
 
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
+
+# webdriverのバージョン管理 webdriverマネージャー及びByのインストール　1
+from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.common.by import By
+
+
 import time
 import requests
 import chromedriver_binary       
 from selenium.webdriver.common.keys import Keys as keys
 import random
 
-id="Obdycu5GtkFORod"
-password="kazuto7171"
+id="session08"
+password="session09"
 search_keys=["検索ワード一つ目","検索ワード二つ目","検索ワード三つ目","・・・"] #検索ワードを入力してください
 
 
 options = webdriver.ChromeOptions()
-#options.add_argument('--headless')    # ヘッドレスモードに
+# options.add_argument('--headless')    # ヘッドレスモードに
 options.add_argument('--no-sandbox')
 options.add_argument('--disable-gpu')
 options.add_argument("-window-size=1920,1080")
@@ -25,7 +31,11 @@ UA = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_5) AppleWebKit/605.1.15 (KHTM
 
 options.add_argument('--user-agent=' + UA)
 #driver = webdriver.Chrome('chromedriver')
-driver = webdriver.Chrome(options=options)
+
+# webdriverマネージャーのインストール
+driver = webdriver.Chrome(ChromeDriverManager().install())
+
+# driver = webdriver.Chrome(options=options)
 driver.implicitly_wait(10)
 driver.maximize_window()
 
@@ -33,18 +43,24 @@ url = "https://twitter.com/i/flow/login"
 
 #id入力
 driver.get(url)
-a = driver.find_elements_by_name("text")
+# a = driver.find_elements_by_name("text")
+a = driver.find_elements(By.NAME,"text")
 a[0].send_keys(id)
 a[0].send_keys(keys.ENTER)
 
 #password入力
-a = driver.find_elements_by_name("password")
+# a = driver.find_elements_by_name("password")
+a = driver.find_elements(By.NAME,"password")
 a[0].send_keys(password)
 a[0].send_keys(keys.ENTER)
 time.sleep(5)
 
 #検索ボタンクリック
-a = driver.find_element_by_xpath("/html/body/div[1]/div/div/div[2]/header/div/div/div/div[1]/div[2]/nav/a[2]")
+# a = driver.find_element_by_xpath("/html/body/div[1]/div/div/div[2]/header/div/div/div/div[1]/div[2]/nav/a[2]")
+
+a = driver.find_element(By.XPATH,"/html/body/div[1]/div/div/div[2]/header/div/div/div/div[1]/div[2]/nav/a[2]")
+
+
 a.click()
 
 time.sleep(4)
@@ -59,7 +75,10 @@ for j in range(len(search_keys)):
     print(driver.current_url)
 
     #search_keyで検索
-    a = driver.find_element_by_xpath("/html/body/div[1]/div/div/div[2]/main/div/div/div/div/div/div[1]/div[1]/div/div/div/div/div[1]/div[2]/div/div/div/form/div[1]/div/div/label/div[2]/div/input")
+    # a = driver.find_element_by_xpath("/html/body/div[1]/div/div/div[2]/main/div/div/div/div/div/div[1]/div[1]/div/div/div/div/div[1]/div[2]/div/div/div/form/div[1]/div/div/label/div[2]/div/input")
+    a = driver.find_element(By.XPATH,"/html/body/div[1]/div/div/div[2]/main/div/div/div/div/div/div[1]/div[1]/div[1]/div/div/div/div/div[1]/div[2]/div/div/div/form/div[1]/div/div/div/label/div[2]/div/input")  
+    
+    
     # if len(a)==0:
     #     a = driver.find_elements_by_xpath("/html/body/div[1]/div/div/div[2]/main/div/div/div/div/div/div[1]/div[1]/div/div/div/div/div[2]/div[2]/div/div/div/form/div[1]/div/div/label/div[2]/div/input")
     a.clear()
@@ -70,7 +89,8 @@ for j in range(len(search_keys)):
     time.sleep(4)
 
     #最新ツイートボタン押す
-    a = driver.find_element_by_xpath("/html/body/div[1]/div/div/div[2]/main/div/div/div/div/div/div[1]/div[2]/nav/div/div[2]/div/div[2]/a")
+    # a = driver.find_element_by_xpath("/html/body/div[1]/div/div/div[2]/main/div/div/div/div/div/div[1]/div[1]/div[2]/nav/div/div[2]/div/div[2]/a")
+    a = driver.find_element(By.XPATH,"/html/body/div[1]/div/div/div[2]/main/div/div/div/div/div/div[1]/div[1]/div[2]/nav/div/div[2]/div/div[2]/a")
     a.click()
 
     time.sleep(4)
@@ -82,14 +102,16 @@ for j in range(len(search_keys)):
 
     while True:
         #ツイートを取得
-        a = driver.find_elements_by_xpath("/html/body/div[1]/div/div/div[2]/main/div/div/div/div/div/div[2]/div/section/div/div/div")
+        # a = driver.find_elements_by_xpath("/html/body/div[1]/div/div/div[2]/main/div/div/div/div/div/div[2]/div/section/div/div/div")
+        a = driver.find_elements(By.XPATH,"/html/body/div[1]/div/div/div[2]/main/div/div/div/div/div/div[2]/div/section/div/div/div")
         if len(a)==0:
             print("ツイートなし")
             break
 
         for i in range(1,len(a)+1):
-            x_path = "/html/body/div[1]/div/div/div[2]/main/div/div/div/div/div/div[2]/div/section/div/div/div["+str(i)+"]/div/div/article/div/div/div/div[2]/div[2]/div[1]/div/div/div[2]/div/div/div/div"
-            detail_button = driver.find_elements_by_xpath(x_path)
+            x_path = "/html/body/div[1]/div/div/div[2]/main/div/div/div/div/div/div[2]/div/section/div/div/div["+str(i)+"]/div/div/div/article/div/div/div/div[2]/div[2]/div[1]/div/div/div[2]/div/div/div/div/div[1]/div/div"
+            # detail_button = driver.find_elements_by_xpath(x_path)
+            detail_button = driver.find_elements(By.XPATH,x_path)
             if len(detail_button)==0:
                 continue
             driver.execute_script("arguments[0].click();",detail_button[0])
@@ -110,7 +132,8 @@ for j in range(len(search_keys)):
             print(str(count)+"回ブロックしました")
             time.sleep(1)
         
-        search_input = driver.find_element_by_xpath("/html/body/div[1]/div/div/div[2]/main/div/div/div/div/div/div[1]/div[1]/div/div/div/div/div[2]/div[2]/div/div/div/form/div[1]/div/div/label/div[2]/div/input")
+        # search_input = driver.find_element_by_xpath("/html/body/div[1]/div/div/div[2]/main/div/div/div/div/div/div[1]/div[1]/div/div/div/div/div[2]/div[2]/div/div/div/form/div[1]/div/div/label/div[2]/div/input")
+        search_input = driver.find_element(By.XPATH,"/html/body/div[1]/div/div/div[2]/main/div/div/div/div/div/div[1]/div[1]/div[1]/div/div/div/div/div[1]/div[2]/div/div/div/form/div[1]/div/div/div/label/div[2]/div/input")
         search_input.send_keys(keys.ENTER)
 
 
