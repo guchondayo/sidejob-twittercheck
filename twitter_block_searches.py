@@ -1,25 +1,27 @@
 # coding:utf-8
 
-
+# webdriverインストール
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 
-# webdriverのバージョン管理 webdriverマネージャー及びByのインストール　1
+# webdriverマネージャー及びByのインストール
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.by import By
 
-
+# その他ライブラリ
 import time
 import requests
 import chromedriver_binary       
 from selenium.webdriver.common.keys import Keys as keys
 import random
 
+# ID、パスワードの入力
 id="session08"
 password="session09"
+# 検索ワード入力
 search_keys=["検索ワード一つ目","検索ワード二つ目","検索ワード三つ目","・・・"] #検索ワードを入力してください
 
-
+# 各種オプション
 options = webdriver.ChromeOptions()
 # options.add_argument('--headless')    # ヘッドレスモードに
 options.add_argument('--no-sandbox')
