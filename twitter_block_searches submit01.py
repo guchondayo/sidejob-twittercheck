@@ -30,6 +30,7 @@ options.add_argument("--start-maximized")
 UA = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_5) AppleWebKit/605.1.15 (KHTML, like Gecko)'
 
 options.add_argument('--user-agent=' + UA)
+#driver = webdriver.Chrome('chromedriver')
 
 # webdriverマネージャーのインストール
 driver = webdriver.Chrome(ChromeDriverManager().install())
@@ -42,11 +43,13 @@ url = "https://twitter.com/i/flow/login"
 
 #id入力
 driver.get(url)
+# a = driver.find_elements_by_name("text")
 a = driver.find_elements(By.NAME,"text")
 a[0].send_keys(id)
 a[0].send_keys(keys.ENTER)
 
 #password入力
+# a = driver.find_elements_by_name("password")
 a = driver.find_elements(By.NAME,"password")
 a[0].send_keys(password)
 a[0].send_keys(keys.ENTER)
@@ -56,11 +59,9 @@ time.sleep(5)
 search_PATH = "/html/body/div[1]/div/div/div[2]/header/div/div/div/div[1]/div[2]/nav/a[2]"
 texBox_PATH = "/html/body/div[1]/div/div/div[2]/main/div/div/div/div/div/div[1]/div[1]/div[1]/div/div/div/div/div[1]/div[2]/div/div/div/form/div[1]/div/div/div/label/div[2]/div/input"
 latest_tag_PATH = "/html/body/div[1]/div/div/div[2]/main/div/div/div/div/div/div[1]/div[1]/div[2]/nav/div/div[2]/div/div[2]/a"
-getTweet_PATH = "/html/body/div[1]/div/div/div[2]/main/div/div/div/div/div/div[2]/div/section/div/div/div"
-block_btn_PATH = "/html/body/div[1]/div/div/div[1]/div[2]/div/div/div/div[2]/div/div[3]/div/div/div/div"
-decide_btn_PATH = "/html/body/div[1]/div/div/div[1]/div[2]/div/div/div/div/div/div[2]/div[2]/div[2]/div[1]"
 
 #検索ボタンクリック
+# a = driver.find_element_by_xpath("/html/body/div[1]/div/div/div[2]/header/div/div/div/div[1]/div[2]/nav/a[2]")
 
 a = driver.find_element(By.XPATH,search_PATH)
 
@@ -79,8 +80,12 @@ for j in range(len(search_keys)):
     print(driver.current_url)
 
     #search_keyで検索
+    # a = driver.find_element_by_xpath("/html/body/div[1]/div/div/div[2]/main/div/div/div/div/div/div[1]/div[1]/div/div/div/div/div[1]/div[2]/div/div/div/form/div[1]/div/div/label/div[2]/div/input")
     a = driver.find_element(By.XPATH,texBox_PATH)  
     
+    
+    # if len(a)==0:
+    #     a = driver.find_elements_by_xpath("/html/body/div[1]/div/div/div[2]/main/div/div/div/div/div/div[1]/div[1]/div/div/div/div/div[2]/div[2]/div/div/div/form/div[1]/div/div/label/div[2]/div/input")
     a.clear()
     time.sleep(2)
     a.send_keys(search_key)
@@ -89,39 +94,45 @@ for j in range(len(search_keys)):
     time.sleep(4)
 
     #最新ツイートボタン押す
+    # a = driver.find_element_by_xpath("/html/body/div[1]/div/div/div[2]/main/div/div/div/div/div/div[1]/div[1]/div[2]/nav/div/div[2]/div/div[2]/a")
     a = driver.find_element(By.XPATH,latest_tag_PATH)
     a.click()
 
     time.sleep(4)
 
+
+
+
     count=0
 
     while True:
         #ツイートを取得
-        a = driver.find_elements(By.XPATH,getTweet_PATH)
+        # a = driver.find_elements_by_xpath("/html/body/div[1]/div/div/div[2]/main/div/div/div/div/div/div[2]/div/section/div/div/div")
+        a = driver.find_elements(By.XPATH,"/html/body/div[1]/div/div/div[2]/main/div/div/div/div/div/div[2]/div/section/div/div/div")
         if len(a)==0:
             print("ツイートなし")
             break
 
         for i in range(1,len(a)+1):
             x_path = "/html/body/div[1]/div/div/div[2]/main/div/div/div/div/div/div[2]/div/section/div/div/div["+str(i)+"]/div/div/div/article/div/div/div/div[2]/div[2]/div[1]/div/div/div[2]/div/div/div/div/div[1]/div/div"
-
+            # detail_button = driver.find_elements_by_xpath(x_path)
             detail_button = driver.find_elements(By.XPATH,x_path)
             if len(detail_button)==0:
                 continue
             driver.execute_script("arguments[0].click();",detail_button[0])
             time.sleep(1)
 
-            block_button = driver.find_elements(By.XPATH,block_btn_PATH)
+            block_button = driver.find_elements(By.XPATH,"/html/body/div[1]/div/div/div[1]/div[2]/div/div/div/div[2]/div/div[3]/div/div/div/div")
             if len(block_button)==3:#ブロックしている時
                 continue
             elif len(block_button)==5:
+                print(block_button[2])
                 block_button[2].click()
             else:
                 continue
             time.sleep(1)
 
-            block = driver.find_element(By.XPATH,decide_btn_PATH)
+            block = driver.find_element(By.XPATH,"/html/body/div[1]/div/div/div[1]/div[2]/div/div/div/div/div/div[2]/div[2]/div[2]/div[1]")
             block.click()
             count=count+1
             print(str(count)+"回ブロックしました")
